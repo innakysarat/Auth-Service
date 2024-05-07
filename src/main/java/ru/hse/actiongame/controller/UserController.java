@@ -2,12 +2,10 @@ package ru.hse.actiongame.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.actiongame.dto.UserInfoDto;
-import ru.hse.actiongame.dto.UserRegisterDto;
-import ru.hse.actiongame.dto.UserLoginDto;
+import ru.hse.actiongame.dto.*;
 import ru.hse.actiongame.service.UserService;
 
-import static ru.hse.actiongame.security.AuthenticationUtils.getCurrentAuthentication;
+import java.util.List;
 
 @RestController
 @RequestMapping("action-game/v1/users")
@@ -21,13 +19,32 @@ public class UserController {
     }
 
     @PostMapping
-    public String registerUser(@RequestBody UserRegisterDto userRegisterDto) {
-        return userService.registerUser(userRegisterDto);
+    public String registerUser(@RequestBody UserRequestDto userRequestDto) {
+        return userService.registerUser(userRequestDto);
     }
 
-    @GetMapping
-    public UserInfoDto getUser() {
-        var username = getCurrentAuthentication().getName();
-        return userService.getUser(username);
+    @GetMapping("/info")
+    public UserResponseDto getUser() {
+        return userService.getUser();
+    }
+
+    @PutMapping("/{username}")
+    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserRequestDto userRequestDto) {
+        return userService.updateUser(username, userRequestDto);
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteUser(@PathVariable String username) {
+        userService.deleteUser(username);
+    }
+
+    @PutMapping("/statistics")
+    public UserStatisticsResponseDto updateUserStatistics(@RequestBody UserStatisticsRequestDto dto) {
+        return userService.updateUserStatistics(dto);
+    }
+
+    @GetMapping("/statistics")
+    public List<UserStatisticsResponseDto> getUsersStatistics() {
+        return userService.getUsersStatistics();
     }
 }

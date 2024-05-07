@@ -24,7 +24,10 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authConfiguration;
 
     private static final RequestMatcher PROTECTED_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/action-game/v1/users/**", "GET")
+            new AntPathRequestMatcher("/action-game/v1/users/info/**", "GET"),
+            new AntPathRequestMatcher("/action-game/v1/users/**", "DELETE"),
+            new AntPathRequestMatcher("/action-game/v1/users/**", "PUT"),
+            new AntPathRequestMatcher("/action-game/v1/users//statistics/**", "PUT")
     );
 
     @Bean
