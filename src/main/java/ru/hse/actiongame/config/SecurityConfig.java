@@ -27,7 +27,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/action-game/v1/users/info/**", "GET"),
             new AntPathRequestMatcher("/action-game/v1/users/**", "DELETE"),
             new AntPathRequestMatcher("/action-game/v1/users/**", "PUT"),
-            new AntPathRequestMatcher("/action-game/v1/users//statistics/**", "PUT")
+            new AntPathRequestMatcher("/action-game/v1/users/statistics/**", "PUT")
     );
 
     @Bean
